@@ -1,3 +1,55 @@
+export const emptyResponseArray = {
+  cveMetadata: {
+    cveId: "",
+    assignerOrgId: "",
+    assignerShortName: "",
+    datePublished: "",
+    dateReserved: "",
+    dateUpdated: "",
+    state: "",
+  },
+  containers: {
+    cna: {
+      descriptions: [{ value: "", lang: "" }],
+      metrics: [],
+      affected: [],
+      problemTypes: [],
+      references: [],
+      providerMetadata: {
+        orgId: "",
+        shortName: "",
+        dateUpdated: "",
+      },
+    },
+    adp: [
+      {
+        metrics: [
+          {
+            other: {
+              type: "",
+              content: {
+                timestamp: "",
+                id: "",
+                options: [],
+                role: "",
+                version: "",
+              },
+            },
+          },
+        ],
+        title: "",
+        providerMetadata: {
+          orgId: "",
+          shortName: "",
+          dateUpdated: "",
+        },
+      },
+    ],
+  },
+  dataType: "",
+  dataVersion: "",
+};
+
 export interface ApiResponse {
   dataType: string;
   dataVersion: string;

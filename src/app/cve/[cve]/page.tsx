@@ -1,16 +1,20 @@
 "use client";
-import { ApiResponse } from "./cveTypes";
+import {
+  ApiResponse,
+  emptyResponseArray as EmptyApiResponseArray,
+} from "./cveTypes";
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import CveTable from "@/app/cve/[cve]/cveTable";
+import CveInfoTable from "@/app/cve/[cve]/cveInfoTable";
 import { Card } from "@/components/ui/card";
 import LoadingSpinner from "@/components/ui/loading-spinner";
+import CveProductsTable from "@/app/cve/[cve]/cveProductsTable";
 
 export default function Page() {
   const cveId = useParams().cve;
 
-  const [cveData, setCveData] = useState<ApiResponse>();
+  const [cveData, setCveData] = useState<ApiResponse>(EmptyApiResponseArray);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -35,13 +39,19 @@ export default function Page() {
       );
     } else {
       return (
-        <CveTable
-          data={{
-            id: cveData?.cveMetadata.cveId,
-            description: cveData?.containers.cna.descriptions[0].value,
-            rating: cveData?.containers.cna.metrics[0].cvssV3_1?.baseScore,
-          }}
-        />
+        <div className="flex flex-col w-full items-center justify-center mt-6 gap-2">
+          <p className="tableHeading">CVE Information</p>
+          <CveInfoTable
+            data={{
+              providerMetadata: cveData.containers.cna.providerMetadata,
+              problemTypes: cveData.containers.cna.problemTypes,
+              descriptions: cveData.containers.cna.descriptions,
+              references: cveData.containers.cna.references,
+            }}
+          />
+          <p className="tableHeading">Affected Products</p>
+          <CveProductsTable data={cveData.containers.cna.affected} />
+        </div>
       );
     }
   };

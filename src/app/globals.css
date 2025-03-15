@@ -109,6 +109,14 @@
   --sidebar-ring: oklch(0.552 0.016 285.938);
 }
 
+.tableHeading {
+  @apply font-bold text-lg;
+}
+
+.referenceUrl {
+  @apply underline hover:text-blue-500 transition-colors duration-100;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
