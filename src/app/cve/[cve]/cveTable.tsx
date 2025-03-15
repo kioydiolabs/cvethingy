@@ -6,9 +6,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Card } from "@/components/ui/card";
-
-import { Metadata } from "next";
 
 interface CveTableProps {
   id?: string;
@@ -16,12 +13,6 @@ interface CveTableProps {
   description?: string;
   rating?: number;
 }
-
-export const metadata: Metadata = {
-  title: "Acme Dashboard",
-  description: "The official Next.js Course Dashboard, built with App Router.",
-  metadataBase: new URL("https://next-learn-dashboard.vercel.sh"),
-};
 
 const CveTable = (props: { data: CveTableProps }) => {
   return (
