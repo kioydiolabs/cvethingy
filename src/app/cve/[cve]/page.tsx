@@ -1,11 +1,11 @@
 "use client";
-
 import { ApiResponse } from "./cveTypes";
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import CveTable from "@/app/cve/[cve]/cveTable";
 import { Card } from "@/components/ui/card";
+import LoadingSpinner from "@/components/ui/loading-spinner";
 
 export default function Page() {
   const cveId = useParams().cve;
@@ -27,7 +27,12 @@ export default function Page() {
 
   const OuterTable = () => {
     if (loading) {
-      return <p>Loading...</p>;
+      return (
+        <div className="flex flex-col w-full items-center justify-center mt-6 gap-2">
+          <p className="font-bold">Loading...</p>
+          <LoadingSpinner />
+        </div>
+      );
     } else {
       return (
         <CveTable
