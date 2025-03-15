@@ -10,6 +10,7 @@ import CveInfoTable from "@/app/cve/[cve]/cveInfoTable";
 import { Card } from "@/components/ui/card";
 import LoadingSpinner from "@/components/ui/loading-spinner";
 import CveProductsTable from "@/app/cve/[cve]/cveProductsTable";
+import CveRatingsTable from "@/app/cve/[cve]/cveRatingsTable";
 
 export default function Page() {
   const cveId = useParams().cve;
@@ -40,6 +41,13 @@ export default function Page() {
     } else {
       return (
         <div className="flex flex-col w-full items-center justify-center mt-6 gap-2">
+          <p className="tableHeading">CVE Scores/Metrics</p>
+          <CveRatingsTable
+            data={{
+              cnaData: cveData.containers.cna,
+              adpData: cveData.containers.adp,
+            }}
+          />
           <p className="tableHeading">CVE Information</p>
           <CveInfoTable
             data={{

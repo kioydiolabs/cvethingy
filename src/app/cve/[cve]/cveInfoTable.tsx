@@ -42,8 +42,8 @@ const CveInfoTable = (props: { data: Data }) => {
         <TableRow className="text-wrap">
           <TableCell className="w-[200px]">Description</TableCell>
           <TableCell className="text-wrap whitespace-normal flex flex-col gap-4">
-            {props.data.descriptions.map((item) => (
-              <p>
+            {props.data.descriptions.map((item, id) => (
+              <p key={id}>
                 <strong>{item.lang}</strong>: {item.value}
               </p>
             ))}

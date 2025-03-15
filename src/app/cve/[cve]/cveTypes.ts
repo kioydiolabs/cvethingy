@@ -123,7 +123,7 @@ export interface Reference {
 export interface CnaMetric {
   format: string;
   scenarios: Scenario[];
-  cvssV3_1?: CvssV3_1;
+  cvssV3_1: CvssV3_1;
 }
 
 export interface Scenario {
@@ -153,6 +153,7 @@ export interface AdpData {
 }
 
 export interface AdpMetric {
+  cvssV3_1?: CvssV3_1;
   other: OtherMetric;
 }
 

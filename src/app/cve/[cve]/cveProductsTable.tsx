@@ -26,11 +26,17 @@ const CveProductsTable = (props: { data: AffectedProduct[] }) => {
           <TableRow key={id}>
             <TableCell>{product.vendor}</TableCell>
             <TableCell>{product.product}</TableCell>
-            <TableCell>
+            <TableCell className="flex flex-col gap-2">
               {product.versions.map((version, id) => (
-                <li key={id}>
-                  From {version.version} until before {version.lessThan} (
-                  {version.status})
+                <li key={id} className="text-wrap">
+                  From <strong>{version.version}</strong> until before{" "}
+                  <strong>
+                    {version.lessThan ? version.lessThan : "[not provided]"}
+                  </strong>{" "}
+                  ({version.status}){" "}
+                  {version.versionType == "git"
+                    ? "(Version numbers are git commit hashes)"
+                    : ""}
                 </li>
               ))}
             </TableCell>
