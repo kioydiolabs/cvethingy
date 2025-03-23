@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: { cve: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }): Promise<Metadata> {
   // Fetch data server-side; note that you might want to handle errors/404s here too.
   const res = await fetch(`https://cveawg.mitre.org/api/cve/${params.cve}`, {
