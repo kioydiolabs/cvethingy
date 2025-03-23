@@ -3,7 +3,7 @@ const LoadingSpinner = () => {
     <svg
       width="24"
       height="24"
-      stroke="#000"
+      className="stroke-black dark:stroke-white"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >

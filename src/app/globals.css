@@ -2,6 +2,8 @@
 
 @plugin "tailwindcss-animate";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -41,7 +43,7 @@
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 0.21rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
   --card: oklch(1 0 0);
@@ -110,7 +112,7 @@
 }
 
 .tableHeading {
-  @apply font-bold text-lg;
+  @apply w-full font-bold text-lg text-center hover:cursor-pointer;
 }
 
 .referenceUrl {
@@ -119,9 +121,10 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/50 rounded-none;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground rounded-none;
+    border-radius: 0px;
   }
 }

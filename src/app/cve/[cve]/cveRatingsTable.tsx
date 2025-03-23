@@ -10,62 +10,101 @@ import {
 import "./cveTypes";
 
 import { AdpData, CnaData } from "@/app/cve/[cve]/cveTypes";
+import { Badge } from "@/components/ui/badge";
+import { TriangleAlert } from "lucide-react";
 
 interface Data {
   cnaData: CnaData;
   adpData: AdpData[];
 }
 
+const CveSeverityBadge = (props: { severity: string }) => {
+  try {
+    const severity = props.severity.toUpperCase();
+
+    switch (severity) {
+      case "LOW":
+        return <Badge className="bg-green-600 text-white">LOW</Badge>;
+      case "MEDIUM":
+        return <Badge className="bg-blue-600 text-white">MEDIUM</Badge>;
+      case "HIGH":
+        return <Badge className="bg-orange-400 text-white">HIGH</Badge>;
+      case "CRITICAL":
+        return <Badge className="bg-red-600 text-white">CRITICAL</Badge>;
+    }
+  } catch (e) {
+    return <Badge>Unknown</Badge>;
+  }
+};
+
 const CveRatingsTable = (props: { data: Data }) => {
-  return (
-    <Table className="text-wrap">
-      <TableHeader>
-        <TableRow>
-          <TableHead>From</TableHead>
-          <TableHead>Score</TableHead>
-          <TableHead>Severity</TableHead>
-          <TableHead>Version</TableHead>
-          <TableHead>Vector String</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody className="text-wrap">
-        {props.data.cnaData.metrics?.map((rating, id) => (
-          <TableRow key={id}>
-            <TableCell>
-              The CNA ("{props.data.cnaData.providerMetadata.shortName}")
-            </TableCell>
-            <TableCell key="base-score">{rating.cvssV3_1?.baseScore}</TableCell>
-            <TableCell key="base-severity">
-              {rating.cvssV3_1?.baseSeverity}
-            </TableCell>
-            <TableCell key="version">{rating.cvssV3_1?.version}</TableCell>
-            <TableCell key="vector-string">
-              {rating.cvssV3_1?.vectorString}
-            </TableCell>
+  if (!props.data || !props.data.adpData) {
+    return (
+      <div className="w-full flex flex-col items-center justify-center gap-2 text-lg">
+        <TriangleAlert /> This CVE has not been rated.
+      </div>
+    );
+  } else {
+    return (
+      <Table className="text-wrap">
+        <TableHeader>
+          <TableRow>
+            <TableHead>From</TableHead>
+            <TableHead>Score</TableHead>
+            <TableHead>Severity</TableHead>
+            <TableHead>Version</TableHead>
+            <TableHead>Vector String</TableHead>
           </TableRow>
-        ))}
-        {props.data.adpData.map((adp) =>
-          adp.metrics
-            .filter((val) => !val.hasOwnProperty("other"))
-            .map((rating, id) => (
-              <TableRow key={id}>
-                <TableCell>An ADP ("{adp.title}")</TableCell>
-                <TableCell key="base-score">
-                  {rating.cvssV3_1?.baseScore}
-                </TableCell>
-                <TableCell key="base-severity">
-                  {rating.cvssV3_1?.baseSeverity}
-                </TableCell>
-                <TableCell key="version">{rating.cvssV3_1?.version}</TableCell>
-                <TableCell key="vector-string">
-                  {rating.cvssV3_1?.vectorString}
-                </TableCell>
-              </TableRow>
-            )),
-        )}
-      </TableBody>
-    </Table>
-  );
+        </TableHeader>
+        <TableBody className="text-wrap">
+          {props.data.cnaData.metrics?.map((rating, id) => (
+            <TableRow key={id}>
+              <TableCell>
+                The CNA ("{props.data.cnaData.providerMetadata.shortName}")
+              </TableCell>
+              <TableCell key="base-score">
+                {rating.cvssV3_1?.baseScore}
+              </TableCell>
+              <TableCell key="base-severity">
+                <CveSeverityBadge severity={rating.cvssV3_1?.baseSeverity} />
+              </TableCell>
+              <TableCell key="version">{rating.cvssV3_1?.version}</TableCell>
+              <TableCell key="vector-string">
+                {rating.cvssV3_1?.vectorString}
+              </TableCell>
+            </TableRow>
+          ))}
+          {props.data.adpData?.map((adp) =>
+            adp.metrics
+              ?.filter((val) => !val.hasOwnProperty("other"))
+              .map((rating, id) => (
+                <TableRow key={id}>
+                  <TableCell>An ADP ("{adp.title}")</TableCell>
+                  <TableCell key="base-score">
+                    {rating.cvssV3_1?.baseScore}
+                  </TableCell>
+                  <TableCell key="base-severity">
+                    <CveSeverityBadge
+                      severity={
+                        rating.cvssV3_1?.baseSeverity
+                          ? rating.cvssV3_1?.baseSeverity
+                          : "-"
+                      }
+                    />
+                  </TableCell>
+                  <TableCell key="version">
+                    {rating.cvssV3_1?.version}
+                  </TableCell>
+                  <TableCell key="vector-string">
+                    {rating.cvssV3_1?.vectorString}
+                  </TableCell>
+                </TableRow>
+              )),
+          )}
+        </TableBody>
+      </Table>
+    );
+  }
 };
 
 export default CveRatingsTable;
