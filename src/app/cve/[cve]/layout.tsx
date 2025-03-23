@@ -1,28 +1,26 @@
-import type { Metadata, ResolvingMetadata } from "next";
-
-type Props = {
-  params: Promise<{ cve: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
-
-export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
-  const { cve } = await params;
-
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: { cve: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
   // Fetch data server-side; note that you might want to handle errors/404s here too.
-  const res = await fetch(`https://cveawg.mitre.org/api/cve/${cve}`, {
+  const res = await fetch(`https://cveawg.mitre.org/api/cve/${params.cve}`, {
     cache: "no-store",
   });
   const cveData = await res.json();
 
   // Customize these properties based on your CVE API response structure
   return {
-    title: cve ? `${cve} | KioydioLabs CVEThingy` : "KioydioLabs CVEThingy",
+    title: params.cve
+      ? `${params.cve} | KioydioLabs CVEThingy`
+      : "KioydioLabs CVEThingy",
     description: `${cveData?.containers?.cna?.descriptions?.[0]?.value}`,
     openGraph: {
-      title: cve ? `${cve} | KioydioLabs CVEThingy` : "KioydioLabs CVEThingy",
+      title: params.cve
+        ? `${params.cve} | KioydioLabs CVEThingy`
+        : "KioydioLabs CVEThingy",
     },
   };
 }
