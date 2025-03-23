@@ -1,9 +1,9 @@
 export async function generateMetadata({
   params,
-  searchParams,
+  _searchParams,
 }: {
   params: { cve: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  _searchParams: { [key: string]: string | string[] | undefined };
 }) {
   // Fetch data server-side; note that you might want to handle errors/404s here too.
   const res = await fetch(`https://cveawg.mitre.org/api/cve/${params.cve}`, {
