@@ -26,7 +26,8 @@ export default function Page() {
   const [status, setStatus] = useState<number>(200);
   const [loading, setloading] = useState<boolean>(true);
 
-  const cveId = useParams().cve;
+  const params = useParams();
+  const cveId = params.cve as string;
 
   useEffect(() => {
     const fetchCve = async () => {

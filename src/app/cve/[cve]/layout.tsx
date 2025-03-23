@@ -1,36 +1,27 @@
-import type { Metadata } from "next";
-
 export async function generateMetadata({
   params,
-  searchParams,
 }: {
   params: { cve: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-}): Promise<Metadata> {
-  // Fetch data server-side; note that you might want to handle errors/404s here too.
+}) {
   const res = await fetch(`https://cveawg.mitre.org/api/cve/${params.cve}`, {
     cache: "no-store",
   });
   const cveData = await res.json();
 
-  // Customize these properties based on your CVE API response structure
+  // Basic metadata
   return {
-    title: params.cve
-      ? `${params.cve} | KioydioLabs CVEThingy`
-      : "KioydioLabs CVEThingy",
-    description: `${cveData?.containers?.cna?.descriptions?.[0]?.value}`,
-    openGraph: {
-      title: params.cve
-        ? `${params.cve} | KioydioLabs CVEThingy`
-        : "KioydioLabs CVEThingy",
-    },
+    title: `${params.cve} | KioydioLabs CVEThingy`,
+    description:
+      cveData?.containers?.cna?.descriptions?.[0]?.value || "CVE details",
   };
 }
 
 export default function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: { cve: string };
 }>) {
   return (
     <div className="flex flex-col items-center justify-center gap-4 w-full">
