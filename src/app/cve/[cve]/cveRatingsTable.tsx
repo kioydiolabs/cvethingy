@@ -32,7 +32,7 @@ const CveSeverityBadge = (props: { severity: string }) => {
       case "CRITICAL":
         return <Badge className="bg-red-600 text-white">CRITICAL</Badge>;
     }
-  } catch (e) {
+  } catch {
     return <Badge>Unknown</Badge>;
   }
 };
@@ -60,7 +60,8 @@ const CveRatingsTable = (props: { data: Data }) => {
           {props.data.cnaData.metrics?.map((rating, id) => (
             <TableRow key={id}>
               <TableCell>
-                The CNA ("{props.data.cnaData.providerMetadata.shortName}")
+                The CNA (&quot;{props.data.cnaData.providerMetadata.shortName}
+                &quot;)
               </TableCell>
               <TableCell key="base-score">
                 {rating.cvssV3_1?.baseScore}
@@ -79,7 +80,7 @@ const CveRatingsTable = (props: { data: Data }) => {
               ?.filter((val) => !val.hasOwnProperty("other"))
               .map((rating, id) => (
                 <TableRow key={id}>
-                  <TableCell>An ADP ("{adp.title}")</TableCell>
+                  <TableCell>An ADP (&quot;{adp.title}&quot;)</TableCell>
                   <TableCell key="base-score">
                     {rating.cvssV3_1?.baseScore}
                   </TableCell>

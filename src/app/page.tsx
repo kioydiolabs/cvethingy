@@ -21,9 +21,11 @@ export default function Home() {
   const [notFound, setNotFound] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleChange = (event: any) => {
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setCveId(event.target.value);
-    setValid(event.target.value.match("CVE-[0-9]{4}-[0-9]+"));
+    setValid(!!event.target.value.match("CVE-[0-9]{4}-[0-9]+"));
     setNotFound(false);
   };
 

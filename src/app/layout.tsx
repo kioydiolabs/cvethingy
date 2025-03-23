@@ -30,6 +30,7 @@ const Navbar = () => {
             src="https://n81z99pp0m.ufs.sh/f/spsDoPJObyQ3gpS5GmHCrfca4S1MYWDm5FiZ3bHN9EdIvhyj"
             height={35}
             width={35}
+            alt="The CVEThingy logo."
           />
           <p className="text-2xl text-center">
             KioydioLabs <strong>CVEThingy</strong>
