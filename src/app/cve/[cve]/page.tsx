@@ -121,8 +121,8 @@ export default function Page() {
 
   const router = useRouter();
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(cveId);
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(cveId);
     toast("Copied CVE ID to clipboard.");
   };
 
