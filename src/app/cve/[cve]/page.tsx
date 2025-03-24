@@ -21,11 +21,14 @@ import { notFound, useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 export default function Page() {
   const [cveData, setCveData] = useState<ApiResponse>(EmptyApiResponseArray);
   const [status, setStatus] = useState<number>(200);
   const [loading, setloading] = useState<boolean>(true);
+  const [decodeVector, setDecodeVector] = useState<boolean>(false);
 
   const params = useParams();
   const cveId = params.cve as string;
@@ -69,12 +72,29 @@ export default function Page() {
                 <p className="tableHeading">CVE Scores/Metrics</p>
               </AccordionTrigger>
               <AccordionContent>
+                <div className="flex flex-row items-center justify-center w-max gap-2 p-2 border mb-2 hover:bg-muted/50">
+                  <Switch
+                    checked={decodeVector}
+                    onClick={() => {
+                      setDecodeVector(!decodeVector);
+                    }}
+                    id="decodeVectorSwitch"
+                    className="cursor-pointer"
+                  />
+                  <Label
+                    htmlFor="decodeVectorSwitch"
+                    className="cursor-pointer"
+                  >
+                    Decode vector string
+                  </Label>
+                </div>
                 <Card>
                   <CveRatingsTable
                     data={{
                       cnaData: cveData.containers.cna,
                       adpData: cveData.containers.adp,
                     }}
+                    decode_vector={decodeVector}
                   />
                 </Card>
               </AccordionContent>
