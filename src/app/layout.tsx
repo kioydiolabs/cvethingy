@@ -71,6 +71,16 @@ const Footer = () => {
           <p>This version has known issues.</p>
         </div>
       </div>
+      {process.env.NODE_ENV === "development" ? (
+        <div className="mt-4 flex flex-row items-center justify-center gap-2">
+          <Badge className="text-[10px] py-0.5">IDV</Badge>
+          <div className="flex flex-col justify-center">
+            <div className="flex flex-row gap-1">
+              <p>Internal Development Version</p>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };
