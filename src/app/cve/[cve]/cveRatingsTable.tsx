@@ -38,7 +38,14 @@ const CveSeverityBadge = (props: { severity: string }) => {
 };
 
 const CveRatingsTable = (props: { data: Data }) => {
-  if (!props.data || !props.data.adpData) {
+  const hasNonEmptyMetrics = props.data.adpData.some(
+    (item: AdpData) => Array.isArray(item.metrics) && item.metrics.length > 0,
+  );
+
+  if (
+    (props.data.cnaData.metrics?.length == 0 || !props.data.cnaData.metrics) &&
+    !hasNonEmptyMetrics
+  ) {
     return (
       <div className="w-full flex flex-col items-center justify-center gap-2 text-lg">
         <TriangleAlert /> This CVE has not been rated.
