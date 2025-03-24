@@ -12,6 +12,7 @@ import "./cveTypes";
 import { AdpData, CnaData } from "@/app/cve/[cve]/cveTypes";
 import { Badge } from "@/components/ui/badge";
 import { TriangleAlert } from "lucide-react";
+import VectorData from "@/app/cve/[cve]/vectorData";
 
 interface Data {
   cnaData: CnaData;
@@ -37,7 +38,7 @@ const CveSeverityBadge = (props: { severity: string }) => {
   }
 };
 
-const CveRatingsTable = (props: { data: Data }) => {
+const CveRatingsTable = (props: { data: Data; decode_vector: boolean }) => {
   const hasNonEmptyMetrics = props.data.adpData.some(
     (item: AdpData) => Array.isArray(item.metrics) && item.metrics.length > 0,
   );
@@ -61,6 +62,7 @@ const CveRatingsTable = (props: { data: Data }) => {
             <TableHead>Severity</TableHead>
             <TableHead>Version</TableHead>
             <TableHead>Vector String</TableHead>
+            {props.decode_vector ? <TableHead>Vector Data</TableHead> : null}
           </TableRow>
         </TableHeader>
         <TableBody className="text-wrap">
@@ -80,6 +82,11 @@ const CveRatingsTable = (props: { data: Data }) => {
               <TableCell key="vector-string">
                 {rating.cvssV3_1?.vectorString}
               </TableCell>
+              {props.decode_vector ? (
+                <TableCell>
+                  <VectorData vector_string={rating.cvssV3_1?.vectorString} />
+                </TableCell>
+              ) : null}
             </TableRow>
           ))}
           {props.data.adpData?.map((adp) =>
@@ -106,6 +113,13 @@ const CveRatingsTable = (props: { data: Data }) => {
                   <TableCell key="vector-string">
                     {rating.cvssV3_1?.vectorString}
                   </TableCell>
+                  {props.decode_vector ? (
+                    <TableCell>
+                      <VectorData
+                        vector_string={rating.cvssV3_1?.vectorString}
+                      />
+                    </TableCell>
+                  ) : null}
                 </TableRow>
               )),
           )}
