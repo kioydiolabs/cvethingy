@@ -20,6 +20,7 @@ import { notFound, useParams, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { toast } from "sonner";
 
 export default function Page() {
   const [cveData, setCveData] = useState<ApiResponse>(EmptyApiResponseArray);
@@ -120,6 +121,11 @@ export default function Page() {
 
   const router = useRouter();
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(cveId);
+    toast("Copied CVE ID to clipboard.");
+  };
+
   return (
     <div className="flex flex-col items-center justify-center w-full mb-10">
       <Card className="w-[75%] p-10 flex flex-col gap-4">
@@ -135,8 +141,16 @@ export default function Page() {
           </Button>
 
           {/* Centered text container */}
-          <div className="absolute left-1/2 transform -translate-x-1/2">
+          <div className=" flex flex-row items-center justify-center  gap-2 absolute left-1/2 transform -translate-x-1/2">
             <p className="text-2xl font-bold text-center">{cveId}</p>
+            <Button
+              className="text-xs px-2 py-1 h-min cursor-pointer"
+              onClick={() => {
+                handleCopy();
+              }}
+            >
+              Copy
+            </Button>
           </div>
         </div>
 

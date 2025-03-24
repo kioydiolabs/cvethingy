@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { Toaster } from "@/components/ui/sonner";
 
 const geist = Geist({ subsets: ["latin"] });
 
@@ -93,6 +94,7 @@ export default function RootLayout({
             {children}
             <Footer />
           </div>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
