@@ -12,6 +12,7 @@ import "./cveTypes";
 import { AdpData, CnaData } from "@/app/cve/[cve]/cveTypes";
 import { Badge } from "@/components/ui/badge";
 import { TriangleAlert } from "lucide-react";
+import VectorData from "@/app/cve/[cve]/vectorData";
 
 interface Data {
   cnaData: CnaData;
@@ -61,6 +62,7 @@ const CveRatingsTable = (props: { data: Data }) => {
             <TableHead>Severity</TableHead>
             <TableHead>Version</TableHead>
             <TableHead>Vector String</TableHead>
+            <TableHead>Vector Data</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody className="text-wrap">
@@ -79,6 +81,9 @@ const CveRatingsTable = (props: { data: Data }) => {
               <TableCell key="version">{rating.cvssV3_1?.version}</TableCell>
               <TableCell key="vector-string">
                 {rating.cvssV3_1?.vectorString}
+              </TableCell>
+              <TableCell>
+                <VectorData vector_string={rating.cvssV3_1?.vectorString} />
               </TableCell>
             </TableRow>
           ))}
@@ -105,6 +110,9 @@ const CveRatingsTable = (props: { data: Data }) => {
                   </TableCell>
                   <TableCell key="vector-string">
                     {rating.cvssV3_1?.vectorString}
+                  </TableCell>
+                  <TableCell>
+                    <VectorData vector_string={rating.cvssV3_1?.vectorString} />
                   </TableCell>
                 </TableRow>
               )),
