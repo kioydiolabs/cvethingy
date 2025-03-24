@@ -104,34 +104,34 @@ const VectorData = (props: { vector_string: string | undefined }) => {
 
     return (
       <Card className="flex flex-col items-start justify-center gap-0 p-4 w-min">
-        <li>
+        <p>
           Version: <strong>{DecodedData.version}</strong>
-        </li>
-        <li>
+        </p>
+        <p>
           Attack Vector: <strong>{DecodedData.attack_vector}</strong>
-        </li>
-        <li>
+        </p>
+        <p>
           Attack Complexity: <strong>{DecodedData.attack_complexity}</strong>
-        </li>
-        <li>
+        </p>
+        <p>
           Privileges Required:{" "}
           <strong>{DecodedData.privileges_required}</strong>
-        </li>
-        <li>
+        </p>
+        <p>
           User Interaction: <strong>{DecodedData.user_interaction}</strong>
-        </li>
-        <li>
+        </p>
+        <p>
           Scope: <strong>{DecodedData.scope}</strong>
-        </li>
-        <li>
+        </p>
+        <p>
           Confidentiality Impact: <strong>{DecodedData.confidentiality}</strong>
-        </li>
-        <li>
+        </p>
+        <p>
           Integrity Impact: <strong>{DecodedData.integrity}</strong>
-        </li>
-        <li>
+        </p>
+        <p>
           Availability Impact: <strong>{DecodedData.availability}</strong>
-        </li>
+        </p>
       </Card>
     );
   }
