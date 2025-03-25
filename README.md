@@ -1,3 +1,11 @@
+# CVEThingy
+
+CVEThingy, is a tool designed to help you view all information about a CVE™ all in one place, in an organized, pretty page.
+
+It uses the data from the MITRE CVE™ API, and displays it in a neatly organized way using NextJS.
+
+# Development Information
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
