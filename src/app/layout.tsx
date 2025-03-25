@@ -60,7 +60,7 @@ const Footer = () => {
         <Badge className="text-[10px] py-0.5">Alpha</Badge>
         <div className="flex flex-col justify-center">
           <div className="flex flex-row gap-1">
-            <p>Version 0.1.1</p>
+            <p>Version 0.1.2</p>
             <Link
               href="https://kioydiolabs.youtrack.cloud/newIssue?project=CVE"
               className="underline"
