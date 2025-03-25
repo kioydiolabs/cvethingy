@@ -13,6 +13,8 @@ import { AdpData, CnaData } from "@/app/cve/[cve]/cveTypes";
 import { Badge } from "@/components/ui/badge";
 import { TriangleAlert } from "lucide-react";
 import VectorData from "@/app/cve/[cve]/vectorData";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 interface Data {
   cnaData: CnaData;
@@ -80,7 +82,22 @@ const CveRatingsTable = (props: { data: Data; decode_vector: boolean }) => {
               </TableCell>
               <TableCell key="version">{rating.cvssV3_1?.version}</TableCell>
               <TableCell key="vector-string">
-                {rating.cvssV3_1?.vectorString}
+                <div className="flex flex-row items-center gap-2">
+                  {rating.cvssV3_1?.vectorString}
+                  <Button
+                    className="text-xs px-2 py-1 h-min cursor-pointer"
+                    onClick={async () => {
+                      await navigator.clipboard.writeText(
+                        rating.cvssV3_1?.vectorString,
+                      );
+                      toast("Copied vector string to cliboard", {
+                        description: rating.cvssV3_1?.vectorString,
+                      });
+                    }}
+                  >
+                    Copy
+                  </Button>
+                </div>
               </TableCell>
               {props.decode_vector ? (
                 <TableCell>
@@ -111,7 +128,22 @@ const CveRatingsTable = (props: { data: Data; decode_vector: boolean }) => {
                     {rating.cvssV3_1?.version}
                   </TableCell>
                   <TableCell key="vector-string">
-                    {rating.cvssV3_1?.vectorString}
+                    <div className="flex flex-row items-center gap-2">
+                      {rating.cvssV3_1?.vectorString}
+                      <Button
+                        className="text-xs px-2 py-1 h-min cursor-pointer"
+                        onClick={async () => {
+                          await navigator.clipboard.writeText(
+                            rating.cvssV3_1?.vectorString,
+                          );
+                          toast("Copied vector string to cliboard", {
+                            description: rating.cvssV3_1?.vectorString,
+                          });
+                        }}
+                      >
+                        Copy
+                      </Button>
+                    </div>
                   </TableCell>
                   {props.decode_vector ? (
                     <TableCell>

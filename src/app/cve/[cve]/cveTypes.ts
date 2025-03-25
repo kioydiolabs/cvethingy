@@ -23,20 +23,7 @@ export const emptyResponseArray = {
     },
     adp: [
       {
-        metrics: [
-          {
-            other: {
-              type: "",
-              content: {
-                timestamp: "",
-                id: "",
-                options: [],
-                role: "",
-                version: "",
-              },
-            },
-          },
-        ],
+        metrics: [],
         title: "",
         providerMetadata: {
           orgId: "",
@@ -153,7 +140,7 @@ export interface AdpData {
 }
 
 export interface AdpMetric {
-  cvssV3_1?: CvssV3_1;
+  cvssV3_1: CvssV3_1;
   other: OtherMetric;
 }
 
