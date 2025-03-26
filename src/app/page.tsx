@@ -26,7 +26,7 @@ export default function Home() {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setCveId(event.target.value);
-    setValid(!!event.target.value.match("CVE-[0-9]{4}-[0-9]+"));
+    setValid(!!event.target.value.match("/^CVE-[0-9]{4}-[0-9]+$/i"));
     setNotFound(false);
   };
 
